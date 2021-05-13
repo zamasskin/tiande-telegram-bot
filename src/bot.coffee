@@ -2,6 +2,9 @@ fs = require "fs"
 user = require "./functions/user"
 
 module.exports = (bot) ->
+
+
+
   # Начало с этого начинается работа бота
   bot.onText /\/start/, (msg) ->
     chatId = msg.chat.id
