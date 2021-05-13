@@ -4,6 +4,7 @@ user = require "./functions/user"
 module.exports = (bot) ->
   # Начало с этого начинается работа бота
   bot.onText /\/start/, (msg) ->
+  
     chatId = msg.chat.id
     author = msg.from
     bot.sendMessage chatId, "Здравствуйте #{ author.first_name }"
@@ -13,13 +14,20 @@ module.exports = (bot) ->
         reply_markup: {
           keyboard: [
             [
-              { text: 'Оставить контакт', request_contact: true }
+              { text: 'Оставить контакт', request_contact: true },
+              { text: 'Оставить контакт', request_contact: true },
+            ], [
+              { text: 'Оставить контакт', request_contact: true },
             ]
           ],
         },
       }
       
     return
+
+  bot.onText /\/hello/, (msg) ->
+    chatId = msg.chat.id
+    bot.sendMessage chatId, "Здравствуйте #{ author.first_name }"
 
   bot.on "message", (msg) ->
     chatId = msg.chat.id
