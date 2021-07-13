@@ -9,7 +9,8 @@
     "run:watch": "nodemon dist/main.js",
     "build": "coffee --compile --output dist/ src/",
     "build:watch": "coffee --compile -w --output dist/ src/",
-    "sshmysql": "ssh -f -N -L 3307:127.0.0.1:3306 root@159.69.59.126"
+    "sshmysql": "ssh -f -N -L 3307:127.0.0.1:3306 root@159.69.59.126",
+    "prettier": "prettier"
   },
   "keywords": [],
   "author": "",
@@ -21,9 +22,12 @@
   },
   "dependencies": {
     "dotenv": "^9.0.2",
+    "eslint-plugin-coffee": "^0.1.14",
     "google-libphonenumber": "^3.2.19",
     "moment": "^2.29.1",
     "mysql2": "^2.2.5",
-    "node-telegram-bot-api": "^0.52.0"
+    "node-telegram-bot-api": "^0.52.0",
+    "prettier": "github:helixbass/prettier#prettier-v2.1.0-dev.100-gitpkg",
+    "prettier-plugin-coffeescript": "^0.1.5"
   }
 }

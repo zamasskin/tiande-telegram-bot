@@ -1,0 +1,9 @@
+{
+  "launch": {
+    "configurations": [],
+    "compounds": []
+  },
+  "[coffeescript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  }
+}
