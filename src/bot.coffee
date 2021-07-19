@@ -308,12 +308,12 @@ module.exports = (bot) ->
       when "/wm_step_8" then wm_step_8 msg
       when "/wm_step_9" then wm_step_9 msg
 
-  wm_stpep_settings = (step, message) ->
+  wm_stpep_settings = (step, text) ->
     return
       reply_markup:
         inline_keyboard: [
           [
-            text: "Бизнес с TianDe - это..."
+            text: text
             callback_data: "/wm_step_" + step
           ]
         ]
@@ -366,7 +366,7 @@ module.exports = (bot) ->
     settings = wm_stpep_settings 9, "Пошаговая стратегия"
     await bot.sendMessage chatId, message, settings
 
-  wm_step_8 = (msg) ->
+  wm_step_9 = (msg) ->
     chatId = msg.chat.id
     message = "step_9"
     await bot.sendMessage chatId, message
