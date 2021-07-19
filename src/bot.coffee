@@ -8,6 +8,9 @@ module.exports = (bot) ->
       reply_markup:
         keyboard: [[text: mess, request_contact: true]]
 
+  bot.onText /\/start/, (msg) -> start msg
+  bot.onText /\/main_menu/, (msg) -> main msg
+
   bot.onText /\/m_feature/, (msg) -> m_feature msg
   bot.onText /\/m_directions/, (msg) -> m_directions msg
   bot.onText /\/m_what_people_are_saying/, (msg) -> m_what_people_are_saying msg
@@ -18,8 +21,7 @@ module.exports = (bot) ->
   bot.onText /\/m_get_gift/, (msg) ->
     m_get_gift msg
 
-    # Привествие
-  bot.onText /\/start/, (msg) ->
+  start = (msg) ->
     chatId = msg.chat.id
     author = msg.from
     message = """
@@ -53,9 +55,6 @@ module.exports = (bot) ->
           ]
         ]
     await bot.sendMessage chatId, message, settings
-    return
-
-  bot.onText /\/main_menu/, (msg) -> main msg
 
   my_first_acquaintance = (msg) ->
     chatId = msg.chat.id
