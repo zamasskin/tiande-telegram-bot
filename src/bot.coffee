@@ -1,6 +1,8 @@
 fs = require "fs"
+path = require "path"
 user = require "./functions/user"
 settings = require "./settings"
+base = require "./functions/base"
 
 module.exports = (bot) ->
   get_contact_settings = (mess) ->
@@ -13,7 +15,6 @@ module.exports = (bot) ->
 
   bot.onText /\/m_feature/, (msg) -> m_feature msg
   bot.onText /\/m_directions/, (msg) -> m_directions msg
-  bot.onText /\/m_what_people_are_saying/, (msg) -> m_what_people_are_saying msg
   bot.onText /\/m_where_to_look/, (msg) -> m_where_to_look msg
   bot.onText /\/m_how_to_get/, (msg) -> m_how_to_get msg
   bot.onText /\/m_want_more/, (msg) -> m_want_more msg
@@ -173,7 +174,7 @@ module.exports = (bot) ->
           ]
           [
             text: "Что говорят о Вашей продукции клиенты?"
-            callback_data: "/m_what_people_are_saying"
+            callback_data: "/review_page_1"
           ]
           [
             text: "Где посмотреть продукцию и как сделать заказ?"
@@ -201,7 +202,6 @@ module.exports = (bot) ->
     switch query.data
       when "/m_feature" then m_feature msg
       when "/m_directions" then m_directions msg
-      when "/m_what_people_are_saying" then m_what_people_are_saying msg
       when "/m_where_to_look" then m_where_to_look msg
       when "/m_how_to_get" then m_how_to_get msg
       when "/m_want_more" then m_want_more msg
@@ -219,11 +219,6 @@ module.exports = (bot) ->
     message =
       "Все разделы: Фото - описание - \
       ссылка на сайте с диплинком, чтобы из инсты не выходить."
-    await bot.sendMessage chatId, message
-
-  m_what_people_are_saying = (msg) ->
-    chatId = msg.chat.id
-    message = "Интересный, цепляющий текст"
     await bot.sendMessage chatId, message
 
   m_where_to_look = (msg) ->
@@ -370,3 +365,50 @@ module.exports = (bot) ->
     chatId = msg.chat.id
     message = "step_9"
     await bot.sendMessage chatId, message
+
+  bot.on "callback_query", (query) ->
+    msg = query.message
+    match = /^\/review_page_([0-9])+$/g.exec query.data.trim()
+    if match && match.length > 0 && Number match[1]
+      review_page msg, Number match[1]
+
+  review_page = (msg, page = 1) ->
+    chatId = msg.chat.id
+    image_path = "./images/review/"
+    count_images = 3
+
+    settings =
+      reply_markup:
+        inline_keyboard: [
+          [
+            text: "Назад"
+            callback_data: "/main_menu"
+          ,
+            text: "Еще"
+            callback_data: "/review_page_" + (page + 1)
+          ]
+        ]
+
+    files = fs.readdirSync image_path
+    images = files.filter (file) -> /.*\.(gif|jpe?g|bmp|png)$/gim.test file
+    images = images.slice (page - 1) * count_images, page * count_images
+    images = images.map (image) ->
+      fs.readFileSync path.resolve image_path, image
+    if images.length > 0
+      for image in images
+        if --count_images
+          await bot.sendPhoto chatId, image
+          await base.time_out 1000
+        else
+          await bot.sendPhoto chatId, image, settings
+    else
+      message = """
+      Читайте отзывы о нашей продукции во всех соцсетях:
+      Ссылки на De_Отзыв
+      Instagram: https://www.instagram.com/explore/tags/de_%\
+      D0%BE%D1%82%D0%B7%D1%8B%D0%B2/
+      VK: https://vk.com/feed?q=%23De_%D0%BE%D1%82%D0%B7%D1%8B%D0%B2§ion=search
+      """
+      await bot.sendMessage chatId, message,
+        reply_markup:
+          inline_keyboard: [[text: "Назад", callback_data: "/main_menu"]]
