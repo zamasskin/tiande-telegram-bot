@@ -183,8 +183,7 @@ module.exports = (bot) ->
   bot.onText /\/m_where_to_look/, (msg) -> m_where_to_look msg
   bot.onText /\/m_how_to_get/, (msg) -> m_how_to_get msg
   bot.onText /\/m_want_more/, (msg) -> m_want_more msg
-  bot.onText /\/what_is_business_with_tian_de/, (msg) ->
-    what_is_business_with_tian_de msg
+  bot.onText /\/wm_step_1/, (msg) -> wm_step_1 msg
   bot.onText /\/m_get_gift/, (msg) -> m_get_gift msg
 
   bot.on "callback_query", (query) ->
@@ -276,17 +275,88 @@ module.exports = (bot) ->
         inline_keyboard: [
           [
             text: "Что такое Бизнес с TianDe?"
-            callback_data: "/what_is_business_with_tian_de"
+            callback_data: "/wm_step_1"
           ]
         ]
     await bot.sendMessage chatId, message, settings
 
-  what_is_business_with_tian_de = (msg) ->
-    chatId = msg.chat.id
-    message = "Бизнес с TianDe - это..."
-    await bot.sendMessage chatId, message
-
   m_get_gift = (msg) ->
     chatId = msg.chat.id
     message = "Получение подарка инфо"
+    await bot.sendMessage chatId, message
+
+  bot.on "callback_query", (query) ->
+    msg = query.message
+    switch query.data
+      when "/wm_step_1" then wm_step_1 msg
+      when "/wm_step_2" then wm_step_2 msg
+      when "/wm_step_3" then wm_step_3 msg
+      when "/wm_step_4" then wm_step_4 msg
+      when "/wm_step_5" then wm_step_5 msg
+      when "/wm_step_6" then wm_step_6 msg
+      when "/wm_step_7" then wm_step_7 msg
+      when "/wm_step_8" then wm_step_8 msg
+      when "/wm_step_9" then wm_step_9 msg
+
+  wm_stpep_settings = (step, message) ->
+    return
+      reply_markup:
+        inline_keyboard: [
+          [
+            text: "Бизнес с TianDe - это..."
+            callback_data: "/wm_step_" + step
+          ]
+        ]
+
+  wm_step_1 = (msg) ->
+    chatId = msg.chat.id
+    message = "step_1"
+    settings = wm_stpep_settings 2, "Бизнес с TianDe - это..."
+    await bot.sendMessage chatId, message, settings
+
+  wm_step_2 = (msg) ->
+    chatId = msg.chat.id
+    message = "step_2"
+    settings = wm_stpep_settings 3, "Привелегии"
+    await bot.sendMessage chatId, message, settings
+
+  wm_step_3 = (msg) ->
+    chatId = msg.chat.id
+    message = "step_3"
+    settings = wm_stpep_settings 4, "Что нужно делать"
+    await bot.sendMessage chatId, message, settings
+
+  wm_step_4 = (msg) ->
+    chatId = msg.chat.id
+    message = "step_4"
+    settings = wm_stpep_settings 5, "Сколько можно зарабатывать?"
+    await bot.sendMessage chatId, message, settings
+
+  wm_step_5 = (msg) ->
+    chatId = msg.chat.id
+    message = "step_5"
+    settings = wm_stpep_settings 6, "Реальные истории, Кейсы"
+    await bot.sendMessage chatId, message, settings
+
+  wm_step_6 = (msg) ->
+    chatId = msg.chat.id
+    message = "step_6"
+    settings = wm_stpep_settings 7, "Возможности маштабироваться"
+    await bot.sendMessage chatId, message, settings
+
+  wm_step_7 = (msg) ->
+    chatId = msg.chat.id
+    message = "step_7"
+    settings = wm_stpep_settings 8, "Как начать?"
+    await bot.sendMessage chatId, message, settings
+
+  wm_step_8 = (msg) ->
+    chatId = msg.chat.id
+    message = "step_8"
+    settings = wm_stpep_settings 9, "Пошаговая стратегия"
+    await bot.sendMessage chatId, message, settings
+
+  wm_step_8 = (msg) ->
+    chatId = msg.chat.id
+    message = "step_9"
     await bot.sendMessage chatId, message
