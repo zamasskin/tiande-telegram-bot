@@ -243,7 +243,7 @@ module.exports = (bot) ->
           ]
         ]
     await bot.sendMessage chatId, message, setting
-    message = "Просто написать нам сюда:"
+    message = "Просто написать нам сюда: @tiandeapp_bot"
     await bot.sendMessage chatId, message
     message = "Позвонить по телефону 8-800-700-70-95"
     settings =
