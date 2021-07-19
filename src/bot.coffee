@@ -21,6 +21,16 @@ module.exports = (bot) ->
   bot.onText /\/m_get_gift/, (msg) ->
     m_get_gift msg
 
+  bot.onText /\/wm_step_1/, (msg) -> wm_step_1 msg
+  bot.onText /\/wm_step_2/, (msg) -> wm_step_2 msg
+  bot.onText /\/wm_step_3/, (msg) -> wm_step_3 msg
+  bot.onText /\/wm_step_4/, (msg) -> wm_step_4 msg
+  bot.onText /\/wm_step_5/, (msg) -> wm_step_5 msg
+  bot.onText /\/wm_step_6/, (msg) -> wm_step_6 msg
+  bot.onText /\/wm_step_7/, (msg) -> wm_step_7 msg
+  bot.onText /\/wm_step_8/, (msg) -> wm_step_8 msg
+  bot.onText /\/wm_step_9/, (msg) -> wm_step_9 msg
+
   start = (msg) ->
     chatId = msg.chat.id
     author = msg.from
