@@ -8,7 +8,17 @@ module.exports = (bot) ->
       reply_markup:
         keyboard: [[text: mess, request_contact: true]]
 
-  # Привествие
+  bot.onText /\/m_feature/, (msg) -> m_feature msg
+  bot.onText /\/m_directions/, (msg) -> m_directions msg
+  bot.onText /\/m_what_people_are_saying/, (msg) -> m_what_people_are_saying msg
+  bot.onText /\/m_where_to_look/, (msg) -> m_where_to_look msg
+  bot.onText /\/m_how_to_get/, (msg) -> m_how_to_get msg
+  bot.onText /\/m_want_more/, (msg) -> m_want_more msg
+  bot.onText /\/wm_step_1/, (msg) -> wm_step_1 msg
+  bot.onText /\/m_get_gift/, (msg) ->
+    m_get_gift msg
+
+    # Привествие
   bot.onText /\/start/, (msg) ->
     chatId = msg.chat.id
     author = msg.from
@@ -176,15 +186,6 @@ module.exports = (bot) ->
           ]
         ]
     await bot.sendMessage chatId, message, settings
-
-  bot.onText /\/m_feature/, (msg) -> m_feature msg
-  bot.onText /\/m_directions/, (msg) -> m_directions msg
-  bot.onText /\/m_what_people_are_saying/, (msg) -> m_what_people_are_saying msg
-  bot.onText /\/m_where_to_look/, (msg) -> m_where_to_look msg
-  bot.onText /\/m_how_to_get/, (msg) -> m_how_to_get msg
-  bot.onText /\/m_want_more/, (msg) -> m_want_more msg
-  bot.onText /\/wm_step_1/, (msg) -> wm_step_1 msg
-  bot.onText /\/m_get_gift/, (msg) -> m_get_gift msg
 
   bot.on "callback_query", (query) ->
     msg = query.message
