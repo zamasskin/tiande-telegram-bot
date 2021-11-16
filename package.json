@@ -18,7 +18,8 @@
   "devDependencies": {
     "coffeescript": "^2.5.1",
     "nodemon": "^2.0.12",
-    "npm-run-all": "^4.1.5"
+    "npm-run-all": "^4.1.5",
+    "path-parse": ">=1.0.7"
   },
   "dependencies": {
     "dotenv": "^9.0.2",
@@ -28,6 +29,7 @@
     "mysql2": "^2.2.5",
     "node-telegram-bot-api": "^0.52.0",
     "prettier": "github:helixbass/prettier#prettier-v2.1.0-dev.100-gitpkg",
-    "prettier-plugin-coffeescript": "^0.1.5"
+    "prettier-plugin-coffeescript": "^0.1.5",
+    "path-parse": ">=1.0.7"
   }
 }
